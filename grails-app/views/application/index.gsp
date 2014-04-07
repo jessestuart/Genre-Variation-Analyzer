@@ -15,12 +15,14 @@
         google.load("visualization", "1", {packages: ["corechart"]});
         google.setOnLoadCallback(drawChart);
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Age', 'Weight'],
-                [9, 12]
-            ]);
-            data.addRow([-2, 12]);
-
+//            var data = google.visualization.arrayToDataTable([
+//                ['Age', 'Weight'],
+//                [0,0]
+//            ]);
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'comp1');
+            data.addColumn('number', 'comp2');
+            data.addRows(${graph1});
 //            var data = new google.visualization.DataTable();
 //            data.addColumn('number', 'Age');
 //            data.addColumn('number', 'Cluster1');
@@ -66,11 +68,12 @@
 //                legend: 'right'
 //
 //            };
-            var rows = ${graph1};
-            for (var i = 0; i < rows.length; i++)
-            {
-                data.addRow(rows[i]);
-            }
+            %{--var rows = ${graph1};--}%
+            %{--for (var i = 0; i < rows.length; i++)--}%
+            %{--{--}%
+                %{--data.addRow(rows[i]);--}%
+            %{--}--}%
+
 
             var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'))
             chart.draw(data);
