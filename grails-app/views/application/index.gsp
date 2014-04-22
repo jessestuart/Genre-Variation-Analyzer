@@ -37,13 +37,13 @@
             var genreMap = [-1, 1, 2, 1, 0, 3, 1, 1, 2, 1, 1, 4, 5, 3, 3, 0, 0, 0, 2, 3, 2];
 
 
-            data.addColumn('number', 'cluster');
-            data.addColumn('number', 'cluster1');
-            data.addColumn('number', 'cluster2');
-            data.addColumn('number', 'cluster3');
-            data.addColumn('number', 'cluster4');
-            data.addColumn('number', 'cluster5');
-            data.addColumn('number', 'cluster6');
+            data.addColumn('number', 'X value');
+            data.addColumn('number', 'FC JK FT MS');
+            data.addColumn('number', 'BL ES GV JO NF NP');
+            data.addColumn('number', 'EM LT TW SM');
+            data.addColumn('number', 'SP CT DT');
+            data.addColumn('number', 'TG');
+            data.addColumn('number', 'TC');
             data.addRows(rows.length)
 
 
