@@ -34,7 +34,8 @@
             var rows = ${graph1};
             %{--var genreToCluster = ${genreMap};--}%
 
-            var genreMap = [-1, 1, 2, 1, 0, 0, 1, 1, 2, 1, 1, 4, 5, 0, 0, 0, 0, 0, 2, 3, 2];
+            var genreMap = [-1, 1, 2, 1, 0, 0, 1, 1, 2, 1, 1, 4, 5, 3, 3, 0, 0, 0, 2, 3, 2];
+
 
             data.addColumn('number', 'cluster');
             data.addColumn('number', 'cluster1');
@@ -52,11 +53,24 @@
 
                 // Determine cluster
                 var genreId = genres[i];
-                var clusterId = genreMap[genreId];
+                var clusterId = genreMap[genreId]+1;
                 console.log("genre Id + cluster ID : ", genreId, clusterId);
                 data.setValue(i, 0, row[0]*-1);
-                data.setValue(i, clusterId+1, row[1]);
+                data.setValue(i, clusterId, row[1]);
             }
+
+            var options = {
+                        title: 'Document regions for components one and two',
+                hAxis: {title: 'First principal component', minValue:-8, maxValue:8}, // minValue: -8, maxValue: 8},
+                vAxis: {title: 'Second principal component'}, // minValue: -4, maxValue: 8},
+//                series: {
+//                    0: {color: 'blue', pointsize: '4'},
+//                    1: {color: 'black', pointsize: '4'},
+//                    2: {color: 'red', pointsize: '4'}
+//                },
+                legend: 'right'
+
+            };
 
 
 //            var data = new google.visualization.DataTable();
@@ -112,28 +126,28 @@
 
 
             var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'))
-            chart.draw(data);
+            chart.draw(data, options);
         }
     </script>
     </head>
 
     <body>
-    <div class="billboard">
-    <r:img dir="images" file="billboard.jpg"/>
-    <div class="billboard-caption">
-        <h1>Linguistic Variation Visualization.</h1>
+        %{--<div class="billboard">--}%
+        %{--<r:img dir="images" file="billboard.jpg"/>--}%
+        %{--<div class="billboard-caption">--}%
+            %{--<h1>Linguistic Variation Visualization.</h1>--}%
+    %{----}%
+            %{--<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>--}%
+            %{--<g:link class="btn btn-lg btn-primary" controller="registration">Sign up today</g:link>--}%
+        %{--</div>--}%
+        %{--</div>--}%
 
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        %{--<g:link class="btn btn-lg btn-primary" controller="registration">Sign up today</g:link>--}%
-    </div>
-    </div>
+    %{--<g:form action="submitData">--}%
+    %{--<g:textArea name="formData"></g:textArea>--}%
+    %{--<g:submitButton name="submitData" value="Submit data"></g:submitButton>--}%
+    %{--</g:form>--}%
 
-    <g:form action="submitData">
-    <g:textArea name="formData"></g:textArea>
-    <g:submitButton name="submitData" value="Submit data"></g:submitButton>
-    </g:form>
-
-    <div id="chart_div" style="width:1000px; height:1000px; margin:0 auto"></div>
+    <div id="chart_div" style="width:1200px; height:1000px; margin:0 auto"></div>
 
     <!--
         <div class="row marketing">

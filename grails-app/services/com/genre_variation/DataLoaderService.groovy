@@ -29,7 +29,7 @@ class DataLoaderService {
         else if ([19].contains(genreId)) return 3
         else if (11 == genreId) return 4
         else if (12 == genreId) return 5
-        else return 0
+        else return -1
     }
 
     def loadData()
