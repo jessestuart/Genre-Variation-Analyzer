@@ -36,6 +36,7 @@
 
             var genreMap = [-1, 1, 2, 1, 0, 0, 1, 1, 2, 1, 1, 4, 5, 0, 0, 0, 0, 0, 2, 3, 2];
 
+            data.addColumn('number', 'cluster');
             data.addColumn('number', 'cluster1');
             data.addColumn('number', 'cluster2');
             data.addColumn('number', 'cluster3');
@@ -54,7 +55,7 @@
                 var clusterId = genreMap[genreId];
                 console.log("genre Id + cluster ID : ", genreId, clusterId);
                 data.setValue(i, 0, row[0]*-1);
-                data.setValue(i, clusterId, row[1]);
+                data.setValue(i, clusterId+1, row[1]);
             }
 
 
