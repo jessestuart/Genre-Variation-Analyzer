@@ -15,14 +15,49 @@
         google.load("visualization", "1", {packages: ["corechart"]});
         google.setOnLoadCallback(drawChart);
         function drawChart() {
-//            var data = google.visualization.arrayToDataTable([
-//                ['Age', 'Weight'],
-//                [0,0]
-//            ]);
+            /*
+            var data = google.visualization.arrayToDataTable([
+                ['Age', 'Weight'],
+                [0,0]
+            ]);
+            */
+
+            /*
             var data = new google.visualization.DataTable();
             data.addColumn('number', 'comp1');
             data.addColumn('number', 'comp2');
             data.addRows(${graph1});
+            */
+
+            var data = new google.visualization.DataTable();
+            var genres = ${genres};
+            var rows = ${graph1};
+            %{--var genreToCluster = ${genreMap};--}%
+
+            var genreMap = [-1, 1, 2, 1, 0, 0, 1, 1, 2, 1, 1, 4, 5, 0, 0, 0, 0, 0, 2, 3, 2];
+
+            data.addColumn('number', 'cluster1');
+            data.addColumn('number', 'cluster2');
+            data.addColumn('number', 'cluster3');
+            data.addColumn('number', 'cluster4');
+            data.addColumn('number', 'cluster5');
+            data.addColumn('number', 'cluster6');
+            data.addRows(rows.length)
+
+
+            for (var i=0; i<rows.length; i++) {
+                var row = rows[i];
+                console.log(genres[i] + " : " + row[0], row[1]);
+
+                // Determine cluster
+                var genreId = genres[i];
+                var clusterId = genreMap[genreId];
+                console.log("genre Id + cluster ID : ", genreId, clusterId);
+                data.setValue(i, 0, row[0]*-1);
+                data.setValue(i, clusterId, row[1]);
+            }
+
+
 //            var data = new google.visualization.DataTable();
 //            data.addColumn('number', 'Age');
 //            data.addColumn('number', 'Cluster1');

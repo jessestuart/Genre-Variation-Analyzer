@@ -10,8 +10,9 @@ class ApplicationController {
         [
                 graph1:dataLoaderService.graph1,
                 graph2:dataLoaderService.graph2,
-                genres:dataLoaderService.genreList,
-                rows:dataLoaderService.googleRow
+                genres:dataLoaderService.genreNums,
+                rows:dataLoaderService.googleRow,
+                genreMap:dataLoaderService.genreClusterMap
         ]
 //        if (!initialized)
 //        {
