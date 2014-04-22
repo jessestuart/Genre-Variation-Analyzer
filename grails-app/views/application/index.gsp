@@ -13,25 +13,68 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
         google.load("visualization", "1", {packages: ["corechart"]});
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            /*
-            var data = google.visualization.arrayToDataTable([
-                ['Age', 'Weight'],
-                [0,0]
-            ]);
-            */
-
-            /*
-            var data = new google.visualization.DataTable();
-            data.addColumn('number', 'comp1');
-            data.addColumn('number', 'comp2');
-            data.addRows(${graph1});
-            */
-
+        google.setOnLoadCallback(drawChart1);
+        google.setOnLoadCallback(drawChart2);
+        function drawChart1() {
             var data = new google.visualization.DataTable();
             var genres = ${genres};
             var rows = ${graph1};
+            %{--var genreToCluster = ${genreMap};--}%
+
+            var genreMap = [-1, 1, 2, 1, 0, 3, 1, 1, 2, 1, 1, 4, 5, 3, 3, 0, 0, 0, 2, 3, 2];
+
+
+            data.addColumn('number', 'X value');
+            data.addColumn('number', 'FC JK FT MS');
+            data.addColumn('number', 'BL ES GV JO NF NP');
+            data.addColumn('number', 'EM LT TW SM');
+            data.addColumn('number', 'SP CT DT');
+            data.addColumn('number', 'TG');
+            data.addColumn('number', 'TC');
+            data.addRows(rows.length)
+
+
+            for (var i=0; i<rows.length; i++) {
+                var row = rows[i];
+//                console.log(genres[i] + " : " + row[0], row[1]);
+
+                // Determine cluster
+                var genreId = genres[i];
+                var clusterId = genreMap[genreId]+1;
+//                console.log("genre Id + cluster ID : ", genreId, clusterId);
+                data.setValue(i, 0, row[0]*-1);
+                data.setValue(i, clusterId, row[1]);
+            }
+
+            var options = {
+                        title: 'Document regions for components one and two',
+                hAxis: {title: 'First principal component',
+                        viewWindowMode:'explicit',
+                        viewWindow:{
+                            min:-8, max:8
+                        }
+                },
+                vAxis: {title: 'Second principal component'}, // minValue: -4, maxValue: 8},
+                series: {
+                    0: {color: 'red'},
+                    1: {color: 'blue'},
+                    2: {color: 'FC2FFC'},
+                    3: {color: 'black'},
+                    4: {color: 'green'},
+                    5: {color: 'AF7B1E'}
+                },
+                legend: 'right',
+                pointSize: 5
+
+            };
+
+            var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'))
+            chart.draw(data, options);
+        }
+        function drawChart2() {
+            var data = new google.visualization.DataTable();
+            var genres = ${genres};
+            var rows = ${graph2};
             %{--var genreToCluster = ${genreMap};--}%
 
             var genreMap = [-1, 1, 2, 1, 0, 3, 1, 1, 2, 1, 1, 4, 5, 3, 3, 0, 0, 0, 2, 3, 2];
@@ -54,30 +97,37 @@
                 // Determine cluster
                 var genreId = genres[i];
                 var clusterId = genreMap[genreId]+1;
-                console.log("genre Id + cluster ID : ", genreId, clusterId);
-                data.setValue(i, 0, row[0]*-1);
-                data.setValue(i, clusterId, row[1]);
+//                console.log("genre Id + cluster ID : ", genreId, clusterId);
+                data.setValue(i, 0, row[0]);
+                data.setValue(i, clusterId, row[1]*-1);
             }
 
             var options = {
-                        title: 'Document regions for components one and two',
-                hAxis: {title: 'First principal component', minValue:-8, maxValue:8}, // minValue: -8, maxValue: 8},
-                vAxis: {title: 'Second principal component'}, // minValue: -4, maxValue: 8},
-                series: {
-                    0: {color: 'red', pointsize: '4'},
-                    1: {color: 'blue', pointsize: '4'},
-                    2: {color: 'pink', pointsize: '4'},
-                    3: {color: 'black', pointsize: '4'},
-                    4: {color: 'green', pointsize: '4'},
-                    5: {color: 'yellow', pointsize: '4'}
+                title: 'Document regions for components three and four',
+                hAxis: {title: 'Third principal component',
+                        viewWindowMode:'explicit',
+                        viewWindow:{
+                            min:-6, max:6
+                        }
                 },
-                legend: 'right'
-
+                vAxis: {title: 'Fourth principal component'}, // minValue: -4, maxValue: 8},
+                series: {
+                    0: {color: 'red'},
+                    1: {color: 'blue'},
+                    2: {color: 'FC2FFC'},
+                    3: {color: 'black'},
+                    4: {color: 'green'},
+                    5: {color: 'AF7B1E'}
+                },
+                legend: 'right',
+                pointSize:5
             };
 
-            var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'))
+            var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_2'))
             chart.draw(data, options);
         }
+
+
     </script>
     </head>
 
@@ -97,7 +147,25 @@
     %{--<g:submitButton name="submitData" value="Submit data"></g:submitButton>--}%
     %{--</g:form>--}%
 
-    <div id="chart_div" style="width:1200px; height:1000px; margin:0 auto"></div>
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab1" data-toggle="tab">1st/2nd Components</a>
+                </li>
+                <li>
+                    <a href="#tab2" data-toggle="tab">3rd/4th Components</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+                <div id="chart_div" style="width:1200px; height:1000px; margin:0 auto"></div>
+            </div>
+            <div class="tab-pane active" id="tab2">
+                <div id="chart_div_2" style="width:1200px; height:1000px; margin:0 auto"></div>
+            </div>
+        </div>
 
     <!--
         <div class="row marketing">
