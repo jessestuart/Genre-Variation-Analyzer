@@ -33,6 +33,8 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
+        compile "org.apache.commons:commons-math3:3.0"
+
 		compile "com.asual.lesscss:lesscss-engine:1.4.2"
         runtime "postgresql:postgresql:9.1-901.jdbc4"
         test("org.seleniumhq.selenium:selenium-htmlunit-driver:$seleniumVersion") {
