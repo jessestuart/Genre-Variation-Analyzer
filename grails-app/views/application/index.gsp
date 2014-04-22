@@ -34,7 +34,7 @@
             var rows = ${graph1};
             %{--var genreToCluster = ${genreMap};--}%
 
-            var genreMap = [-1, 1, 2, 1, 0, 0, 1, 1, 2, 1, 1, 4, 5, 3, 3, 0, 0, 0, 2, 3, 2];
+            var genreMap = [-1, 1, 2, 1, 0, 3, 1, 1, 2, 1, 1, 4, 5, 3, 3, 0, 0, 0, 2, 3, 2];
 
 
             data.addColumn('number', 'cluster');
@@ -63,67 +63,17 @@
                         title: 'Document regions for components one and two',
                 hAxis: {title: 'First principal component', minValue:-8, maxValue:8}, // minValue: -8, maxValue: 8},
                 vAxis: {title: 'Second principal component'}, // minValue: -4, maxValue: 8},
-//                series: {
-//                    0: {color: 'blue', pointsize: '4'},
-//                    1: {color: 'black', pointsize: '4'},
-//                    2: {color: 'red', pointsize: '4'}
-//                },
+                series: {
+                    0: {color: 'red', pointsize: '4'},
+                    1: {color: 'blue', pointsize: '4'},
+                    2: {color: 'pink', pointsize: '4'},
+                    3: {color: 'black', pointsize: '4'},
+                    4: {color: 'green', pointsize: '4'},
+                    5: {color: 'yellow', pointsize: '4'}
+                },
                 legend: 'right'
 
             };
-
-
-//            var data = new google.visualization.DataTable();
-//            data.addColumn('number', 'Age');
-//            data.addColumn('number', 'Cluster1');
-//            data.addColumn('number', 'Cluster2');
-//            data.addColumn('number', 'Cluster3');
-//            data.addRows(6);
-//
-//            // First value. Since it belongs to serie1 it has
-//            // data in the 0th column (x-axis) and 1st column (y-axis for Serie1)
-//            data.setValue(0, 0, 8);
-//            data.setValue(0, 1, 12);
-//
-//            // Second value. Since it belongs to serie2 it has
-//            // data in the 0th column (x-axis) and 2nd column (y-axis for Serie2)
-//            data.setValue(1, 0, 4);
-//            data.setValue(1, 2, 5.5);
-//
-//            // Further values. Since they all belong to serie3, they have
-//            // data in the 0th column (x-axis) and 3nd column (y-axis for Serie3)
-//            data.setValue(2, 0, 11);
-//            data.setValue(2, 3, 14);
-//            data.setValue(3, 0, 4);
-//            data.setValue(3, 3, 4.5);
-//            data.setValue(4, 0, 3);
-//            data.setValue(4, 3, 3.5);
-//            data.setValue(5, 0, 6.5);
-//            data.setValue(5, 3, 7);
-            %{--var data = new google.visualization.DataTable(--}%
-                    %{--{--}%
-                        %{--cols:[{id:'pc1', type:'number'}, {id:'pc2', type:'number'}],--}%
-                        %{--rows:${graph1}--}%
-                    %{--}--}%
-            %{--);--}%
-//            var options = {
-//    //                    title: 'Age vs. Weight comparison',
-//                hAxis: {title: 'First principal component', minValue: 0, maxValue: 15},
-//                vAxis: {title: 'Second principal component', minValue: 0, maxValue: 15},
-//                series: {
-//                    0: {color: 'blue', pointsize: '4s'},
-//                    1: {color: 'black', pointsize: '4'},
-//                    2: {color: 'red', pointsize: '4'}
-//                },
-//                legend: 'right'
-//
-//            };
-            %{--var rows = ${graph1};--}%
-            %{--for (var i = 0; i < rows.length; i++)--}%
-            %{--{--}%
-                %{--data.addRow(rows[i]);--}%
-            %{--}--}%
-
 
             var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'))
             chart.draw(data, options);
